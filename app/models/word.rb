@@ -1,19 +1,24 @@
-class Word < ActiveRecord::Base
+class Word < ActiveRecord::Base 
+
+  before_save :save_canonical_representation
 
   def anagrams
+    anagrams = Word.where('canonical_representation = ?', generate_canonical_representation)
+    anagrams.map { |anagram| anagram.word }
   end
+
+  def is_anagram?(other_word)
+    canonical_representation == other_word.canonical_representation
+  end
+
+  private
+
+  def save_canonical_representation
+    self.canonical_representation = generate_canonical_representation
+  end
+
+  def generate_canonical_representation
+    self.word.downcase.split('').sort.join
+  end
+
 end
-# Take each letter of passed-in word, and shovel into array
-# Get length/size of array and sort
-# Find words in dictionary with same number of letters
-# Iterate through that list and shovel each character in each word into an array
-# Sort that array
-# Compare initial array to every other array, looking for equality. If equal,
-# then return the original dictionary word. 
-
-
-##1) passed-in-word.downcase.split('').sort
-##1a) length = passed-in-word.split('').length
-
-# ^^ Thought of that, and then asked ourselves if we can put the sorted word
-# into the database itself to speed things up. 

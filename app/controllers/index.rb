@@ -1,12 +1,15 @@
 get '/' do
-  # @word = "No words yet"
-  # Look in app/views/index.erb
   erb :index
 end
 
 get '/:word' do
+  # Look in app/views/index.erb
   @word = params[:word]
-  @sorted_word = @word.downcase.split('').sort.join
-  @matched = Word.where(sorted_letters: @sorted_word).map { |entry | entry.word }
+  @anagrams = Word.new(word: @word).anagrams
+
   erb :index
+end
+
+post '/' do
+  redirect "/#{params[:word]}"
 end
