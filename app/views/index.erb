@@ -1,13 +1,32 @@
-<% if @word %>
+<div class="container">
+  <h1>Welcome to the Anagram Jungle</h1>
+  <% if @word%>
 
-  <div><h1>Anagrams for <%= @word %>:</h1></div>
-  <div><%= @anagrams %></div>
+  <div><h1>Here are the anagrams for <%= @word %>:</h1>
+    <% end %>
 
-<% end %>
 
-<hr>
+ 
+    <% if @anagrams %>
+      <div>
+        <ul>
+          <% @anagrams.each do |anag| %>
+            <li>
+              <%= anag.word %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    
 
-<form action='/' method='POST'>
-  <input type='text' name='word'>
-  <input type='submit' value='go!'>
-</form>
+    <% end %>
+
+
+    <hr>
+
+    <form action='/' method='POST'>
+      <input type='text' name='word'>
+      <input type='submit' value='go!'>
+    </form>
+  </div>
+

@@ -3,13 +3,12 @@ get '/' do
 end
 
 get '/:word' do
-  # Look in app/views/index.erb
   @word = params[:word]
-  @anagrams = Word.new(word: @word).anagrams
-
+  
+  @anagrams = Word.find_anagram(@word)
   erb :index
 end
 
 post '/' do
-  redirect "/#{params[:word]}"
+  redirect "/#{params[:word]}" 
 end
