@@ -2,12 +2,9 @@
   <h1>Welcome to the Anagram Jungle</h1>
   <% if @word%>
 
-  <div><h1>Here are the anagrams for <%= @word %>:</h1>
-    <% end %>
+    <h3>Here are the anagrams for <%= @word %>:</h3>
 
-
- 
-    <% if @anagrams %>
+    <% if @anagrams.size > 1 %>
       <div>
         <ul>
           <% @anagrams.each do |anag| %>
@@ -17,10 +14,12 @@
           <% end %>
         </ul>
       </div>
+    <% else %>
+      <p> Whoops, <%= @word %> has only one anagram, itself.</p>  
     
 
     <% end %>
-
+    <% end %>
 
     <hr>
 
